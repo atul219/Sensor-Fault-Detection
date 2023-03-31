@@ -1,1 +1,2 @@
-DATABASE_NAME = 'sensor_fault'
+DATABASE_NAME = 'ineuron'
+COLLECTION_NAME = 'car'
