@@ -16,9 +16,9 @@ def write_yaml_file(filepath: str, content: object, replace: bool = False) -> No
         if replace and os.path.exists(filepath):
             os.remove(filepath)
         
-        os.makedirs(filepath)(os.path.dirname(filepath), exist_ok=True)
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
-        with open(filepath, 'wb') as yaml_file:
+        with open(filepath, 'w') as yaml_file:
             yaml.dump(content, yaml_file)
 
 

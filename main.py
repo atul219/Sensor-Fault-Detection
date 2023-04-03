@@ -10,6 +10,7 @@ if __name__ == '__main__':
     train_pipeline = TrainPipeline()
     train_pipeline.run_pipeline()
 
+
     # mongo_db_client = MongoDBClient()
     # print(mongo_db_client.database.list_collection_names())
     # test_exception()
