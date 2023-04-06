@@ -78,7 +78,7 @@ class DataTransformationConfig:
 
 class ModelTrainerConfig:
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
-        self.model_trainer_dir_name: str = os.path.join(self.training_pipeline_config.artifcat_dir, 
+        self.model_trainer_dir_name: str = os.path.join(training_pipeline_config.artifcat_dir, 
                                                    training_pipeline.MODEL_TRAINER_DIR_NAME)
         
         self.trained_model_file_path: str = os.path.join(self.model_trainer_dir_name, 
@@ -89,3 +89,21 @@ class ModelTrainerConfig:
 
         self.over_under_thres: float = training_pipeline.MODEL_TRAINER_OVER_FITTING_UNDER_FITTING_THRESHOLD
 
+
+class ModelEvaluationConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.model_evaluation_dir_name: str = os.path.join(training_pipeline_config.artifcat_dir, training_pipeline.MODEL_EVALUATION_DIR_NAME)
+        self.model_evaluation_threshold: float = training_pipeline.MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+        self.model_evaluation_report: str = os.path.join(self.model_evaluation_dir_name,training_pipeline.MODEL_EVALUATION_REPORT_NAME)
+
+
+class ModelPusherConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.model_evaluation_dir_name: str = os.path.join(training_pipeline_config.artifcat_dir, training_pipeline.MODLEL_PUSHER_DIR_NAME)
+
+        self.model_file_path: str = os.path.join(self.model_evaluation_dir_name, training_pipeline.MODEL_FILE_NAME)
+
+        timestamp = round(datetime.now().timestamp())
+        self.saved_model_path: str = os.path.join(training_pipeline.SAVED_MODEL_DIR,
+                                                 f"{timestamp}",
+                                                 training_pipeline.MODEL_FILE_NAME)
