@@ -82,15 +82,15 @@ class DataValidation:
                 data_2 = test_df[column]
                 is_same_dist = ks_2samp(data_1, data_2)
 
-                if threshold >= is_same_dist.pvalue:
+                if threshold <= is_same_dist.pvalue:
                     drift_found = False
                 else:
                     drift_found = True
                     status = False
-                    report[column] = {
-                        'p_value': float(is_same_dist.pvalue),
-                        'drift_status': drift_found,
-                    }
+                report[column] = {
+                    'p_value': float(is_same_dist.pvalue),
+                    'drift_status': drift_found,
+                }
 
             drift_report_file_path = self.data_validation_config.report_file_path
             

@@ -47,7 +47,7 @@ def save_numpy_array_data(filepath: str, array: np.array):
         raise SensorException(e, sys) from e
     
 
-def load_numpy_array_deta(filepath: str) -> np.array:
+def load_numpy_array_data(filepath: str) -> np.array:
     """laod numpy array data from file
 
     Args:
@@ -73,6 +73,21 @@ def save_object(filepath: str, obj: object) -> None:
             dill.dump(obj, file_obj)
         
         logging.info('Object Saved')
+    except Exception as e:
+        raise SensorException(e, sys) from e
+    
+
+def load_object(filepath: str) -> object:
+
+    try:
+        logging.info('Loading Object')
+        if not os.path.exists(filepath):
+            raise Exception(f"the file: {filepath} does not exists")
+        
+        with open(filepath, 'wb') as file_obj:
+            dill.laod(file_obj)
+            return dill
+        
     except Exception as e:
         raise SensorException(e, sys) from e
     
