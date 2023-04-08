@@ -57,6 +57,7 @@ class ModelEvaluation:
                     train_model_metric_artifact = self.model_trainer_artifact.test_metric_artifact,
                     best_model_metric_artifact = None)
                  
+                logging.info('Model does not exist')
                 logging.info(f"Model evaluation artifact: {model_evaluation_artifact}")
             
                 return model_evaluation_artifact
@@ -69,10 +70,13 @@ class ModelEvaluation:
             y_train_pred = train_model.predict(df)
             y_latest_pred = latest_model.predict(df)
 
+            logging.info('Model exist')
             trained_metric = get_classification_score(y_true, y_train_pred)
             latest_metric = get_classification_score(y_true, y_latest_pred)
+            logging.info(f"Train Model Metric: {trained_metric}")
+            logging.info(f"Best Model metric: {latest_metric}")
 
-            improved_accuracy = trained_metric - latest_metric
+            improved_accuracy = trained_metric.f1_score - latest_metric.f1_score
             if self.model_evaluation_config.model_evaluation_threshold < improved_accuracy:
                 # 0.02 <  0.03
                 is_model_accepted = True
@@ -92,7 +96,7 @@ class ModelEvaluation:
 
             # saving report
             write_yaml_file(self.model_evaluation_config.model_evaluation_report, model_eval_report)
-
+            
             logging.info(f"Model evaluation artifact: {model_evaluation_artifact}")
 
             return model_evaluation_artifact
